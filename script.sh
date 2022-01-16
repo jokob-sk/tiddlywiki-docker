@@ -17,6 +17,5 @@ if [ ! -d /var/lib/tiddlywiki/mywiki ]; then
 fi
 
 
-# Build the tiddlywiki as one index.html file 
-
-exec /usr/bin/env node $NODEJS_V8_ARGS $tiddlywiki_script mywiki --rendertiddler $:/core/save/all index.html text/plain
+# Re-build the tiddlywiki static file
+exec node $NODEJS_V8_ARGS $tiddlywiki_script /var/lib/tiddlywiki/mywiki --rendertiddler $:/core/save/all index.html text/plain

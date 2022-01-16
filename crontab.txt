@@ -1,0 +1,1 @@
+30 3 * * * /script.sh >> /var/log/script.log 2>&1 /

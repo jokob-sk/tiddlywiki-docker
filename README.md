@@ -1,58 +1,28 @@
-# TiddliWiki 5 Docker image
+# A NodeJS tiddlywiki docker image for building a static index.html file containing all tiddlers.
 
-Run TiddlyWiki 5 via Docker.
+You need a separate Docker image for creating and serving the wiki, e.g. [m0wer/tiddlywiki-docker](https://github.com/m0wer/tiddlywiki-docker).
+
+# Source code location
+
+[https://github.com/jokob-sk/tiddlywiki-docker](https://github.com/jokob-sk/tiddlywiki-docker)
 
 Forked from
-[djmaze/tiddlywiki-docker](https://github.com/djmaze/tiddlywiki-docker).
+[m0wer/tiddlywiki-docker](https://github.com/m0wer/tiddlywiki-docker).
 
-The Docker image is available at [m0wer/tiddlywiki - Docker
-Hub](https://hub.docker.com/r/m0wer/tiddlywiki).
+The Docker image is available at [jokobsk/tiddlywiki-generate-index-html - Docker
+Hub](https://registry.hub.docker.com/r/jokobsk/tiddlywiki-generate-index-html/).
 
-## Available Docker Images at DockerHub
-
-Image Name       | Tag        | TiddyWiki Version
------------------|------------|------------------
-m0wer/tiddlywiki | latest     | 5.2.0
-m0wer/tiddlywiki | v[X]       | [X]
-m0wer/tiddlywiki | test       | ?
-
-## Prerequisites
-
-* Docker.
-
-## Quickstart
-
-```bash
-docker run -d -p 8080:8080 m0wer/tiddlywiki
-```
-
-Now TiddlyWiki should be running on
-[http://localhost:8080](http://localhost:8080).
-
-## Keeping the data
-
-The container uses a Docker volume to save the wiki data. In order not
-to lose sight of that, I recommend using a local directory for the volume.
-
-```bash
-docker run -d -p 8080:8080 -v $(pwd)/.tiddlywiki:/var/lib/tiddlywiki m0wer/tiddlywiki
-```
+## Pointing to a TiddlyWiki
 
 In this example, the folder `$(pwd)/.tiddlywiki` is used for the data.
 
-## Authentication
+The index.html file can be found in `/var/lib/tiddlywiki/output`
 
-Authentication is disabled by default. To enable it, simply provide the
-`USERNAME` and `PASSWORD` environment variables.
+## Runtime
+The rebuild is executed based on the `crontab.txt` entry, by default at 3:30AM. Modify the `crontab.txt` file an rebuild the container according to your needs. 
 
-## Other settings
+## Pointing to a TiddlyWiki
 
-### Limit Node.js memory
+In this example, the folder `/var/lib/tiddlywiki/` is used for the data. Map this folder to to the location of your `mywiki` folder containing your wiki. This can NOT be changed via configuration. You can fork this repo and change the corresponding code if you need a different wiki folder name. 
 
-If you are in a memory-constrained environment, you can provide the
-`NODE_MEM` environment variable to specify the memory ceiling (in MB)
-
-### Debug
-
-Set the `DEBUG_LEVEL` environment variable to `debug`. For example by passing
-`-e DEBUG_LEVEL=debug` option in `docker run`.
+The built (generated) index.html file can be found in `/var/lib/tiddlywiki/output`
